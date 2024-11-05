@@ -9,6 +9,10 @@
 - (NSString*)applicationBundleIdentifierForShortcuts;
 @end
 
+@interface SBSApplicationShortcutSystemPrivateIcon : NSObject
+- (id)initWithSystemImageName:(id)arg1;
+@end 
+
 static dispatch_source_t _timer;
 
 @interface _UISceneLayerHostContainerView : UIView
@@ -29,7 +33,6 @@ static dispatch_source_t _timer;
 @end
 
 %hook SBIconView
-// credits to https://github.com/opa334/Choicy/blob/master/ChoicySB/TweakSB.x#L171
 - (NSArray *)applicationShortcutItems
 {
     NSArray* orig = %orig;
@@ -50,10 +53,10 @@ static dispatch_source_t _timer;
     }
 
     SBSApplicationShortcutItem* toggleSafeModeOnceItem = [[%c(SBSApplicationShortcutItem) alloc] init];
-    toggleSafeModeOnceItem.localizedTitle = @"MilkyWay2";
+    toggleSafeModeOnceItem.localizedTitle = @"Launch as window";
     toggleSafeModeOnceItem.bundleIdentifierToLaunch = applicationID;
     toggleSafeModeOnceItem.type = @"com.brend0n.milkyway2-ios14fix";
-
+    toggleSafeModeOnceItem.icon = [[objc_getClass("SBSApplicationShortcutSystemPrivateIcon") alloc] initWithSystemImageName:@"macwindow"];
     return [orig arrayByAddingObject:toggleSafeModeOnceItem];
 
 }

@@ -1,9 +1,7 @@
-ifdef SIMULATOR
-TARGET = simulator:clang:latest:8.0
-else
-TARGET = iphone:clang:latest:7.0
-ARCHS = arm64 arm64e
-endif
+export TARGET = iphone:clang:14.5:15.0
+export ARCHS = arm64e
+export FINALPACKAGE=1
+export THEOS_DEVICE_IP= 192.168.1.113
 
 INSTALL_TARGET_PROCESSES = SpringBoard
 
